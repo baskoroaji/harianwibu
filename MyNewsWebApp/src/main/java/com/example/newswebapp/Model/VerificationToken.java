@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tokens")
+@Builder
 public class VerificationToken {
 
     @Id
@@ -31,5 +33,4 @@ public class VerificationToken {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
 }

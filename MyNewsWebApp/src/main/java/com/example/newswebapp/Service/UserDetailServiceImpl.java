@@ -29,10 +29,4 @@ public class UserDetailServiceImpl implements UserDetailsService {
         return Repository.findByEmail(userEmail)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
-    private Collection<? extends GrantedAuthority> getAuthorities(User user) {
-        return user.getRoles()
-                .stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .toList();
-    }
 }

@@ -7,6 +7,7 @@ import com.example.newswebapp.dto.AuthRequest;
 import com.example.newswebapp.dto.AuthResponse;
 import com.example.newswebapp.dto.RegisterRequest;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Tag(name = "Authentication")
 public class AuthController {
 
     private final AuthService service;

@@ -1,23 +1,28 @@
 package com.example.newswebapp.Handler;
 
+import com.example.newswebapp.Handler.ActivationTokenException;
+import com.example.newswebapp.Handler.OperationNotPermittedException;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+import static com.example.newswebapp.Handler.BussinessErrorCode.ACCOUNT_LOCKED;
+import static com.example.newswebapp.Handler.BussinessErrorCode.ACCOUNT_DISABLED;
+import static com.example.newswebapp.Handler.BussinessErrorCode.BAD_CREDENTIALS;
 
 import jakarta.mail.MessagingException;
 
-@RestControllerAdvice
+@ControllerAdvice
 public class GlobalException {
     @ExceptionHandler(LockedException.class)
     public ResponseEntity<ExceptionResponse> handleException(LockedException exp) {
@@ -25,8 +30,8 @@ public class GlobalException {
                 .status(UNAUTHORIZED)
                 .body(
                         ExceptionResponse.builder()
-                                .businessErrorCode(BussinessErrorCode.ACCOUNT_LOCKED.getCode())
-                                .businessErrorDescription(BussinessErrorCode.ACCOUNT_LOCKED.getDescription())
+                                .businessErrorCode(ACCOUNT_LOCKED.getCode())
+                                .businessErrorDescription(ACCOUNT_LOCKED.getDescription())
                                 .error(exp.getMessage())
                                 .build()
                 );
@@ -38,8 +43,8 @@ public class GlobalException {
                 .status(UNAUTHORIZED)
                 .body(
                         ExceptionResponse.builder()
-                                .businessErrorCode(BussinessErrorCode.ACCOUNT_DISABLED.getCode())
-                                .businessErrorDescription(BussinessErrorCode.ACCOUNT_DISABLED.getDescription())
+                                .businessErrorCode(ACCOUNT_DISABLED.getCode())
+                                .businessErrorDescription(ACCOUNT_DISABLED.getDescription())
                                 .error(exp.getMessage())
                                 .build()
                 );
@@ -52,8 +57,8 @@ public class GlobalException {
                 .status(UNAUTHORIZED)
                 .body(
                         ExceptionResponse.builder()
-                                .businessErrorCode(BussinessErrorCode.BAD_CREDENTIALS.getCode())
-                                .businessErrorDescription(BussinessErrorCode.BAD_CREDENTIALS.getDescription())
+                                .businessErrorCode(BAD_CREDENTIALS.getCode())
+                                .businessErrorDescription(BAD_CREDENTIALS.getDescription())
                                 .error("Login and / or Password is incorrect")
                                 .build()
                 );

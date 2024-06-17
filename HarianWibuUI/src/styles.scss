@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+.body{
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+  .login-container {
+    width: 450px !important;
+    margin-top: 15%;
+    border-color: transparent;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-indent: 5px;
+  }
+  .form-control {
+    background-color: rgb(45, 52, 61);
+    border-color: transparent;
+}
+.form-control::placeholder {
+  color: white;
+  opacity: .2;
+}
+
+.form-control:focus {
+    background-color: rgb(45, 52, 61);
+}

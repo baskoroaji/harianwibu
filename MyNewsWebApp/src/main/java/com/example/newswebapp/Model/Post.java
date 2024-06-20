@@ -1,7 +1,11 @@
 package com.example.newswebapp.Model;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
+import org.springframework.data.annotation.CreatedDate;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,12 +31,20 @@ public class Post {
     private String PostName;
     private Instant PostDate;
     @Lob
-    private byte[] image;
+    private String image;
     @Lob
     private String content;
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdDate;
+    @Column(insertable = false)
+    private LocalDateTime updatedDate;
 
     @ManyToOne
     @JoinColumn(name = "userId" , referencedColumnName = "userId")
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
 }

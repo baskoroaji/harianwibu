@@ -1,6 +1,7 @@
 package com.example.newswebapp.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -55,18 +56,19 @@ public class PostService {
         );
     }
 
-    public Long edit(PostRequest request, Authentication connectedUser, Long postId) {
+    public Long edit(Authentication connectedUser, Long postId) {
         User user = ((User) connectedUser.getPrincipal());
-         Post existingPost = postRepository.findById(postId)
+        Post existingPost = postRepository.findById(postId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found"));
 
-        if (!existingPost.getOwner().getUserId().equals(user.getUserId())) {
+        if (!Objects.equals(existingPost.getOwner().getUserId(), user.getUserId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not the author of this post");
         }
-        existingPost.setPostName(request.getPostName());
-        existingPost.setContent(request.getContent());
+        existingPost.setPostName(existingPost.getPostName());
+        existingPost.setContent(existingPost.getContent());
         return postRepository.save(existingPost).getPostId();
  }
+
     public void deletePost(Long postId, Authentication connectedUser) {
     User user = ((User) connectedUser.getPrincipal());
     Post existingPost = postRepository.findById(postId)

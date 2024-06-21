@@ -2,13 +2,16 @@ package com.example.newswebapp.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.newswebapp.Common.PageResponse;
 import com.example.newswebapp.Service.PostService;
 import com.example.newswebapp.dto.PostRequest;
 import com.example.newswebapp.dto.PostResponse;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -55,5 +58,12 @@ public class PostContoller {
         return ResponseEntity.ok(service.edit(connectedUser, postId));
     }
 
-
+    @PostMapping(value = "/cover/{post-id}", consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadImage(@PathVariable("post-id") Long postId,
+        @Parameter()@RequestPart("file") MultipartFile file, Authentication connectedUser) {
+        
+       service.uploadImage(file, connectedUser, postId);
+       return ResponseEntity.accepted().build();
+    }
+    
 }

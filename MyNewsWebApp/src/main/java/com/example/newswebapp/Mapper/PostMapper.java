@@ -1,9 +1,12 @@
 package com.example.newswebapp.Mapper;
 
+import org.springframework.stereotype.Service;
+
 import com.example.newswebapp.Model.Post;
 import com.example.newswebapp.dto.PostRequest;
 import com.example.newswebapp.dto.PostResponse;
 
+@Service
 public class PostMapper {
 
     public Post toPost(PostRequest request){

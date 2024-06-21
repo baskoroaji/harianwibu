@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.newswebapp.Common.PageResponse; 
@@ -22,6 +23,7 @@ import com.example.newswebapp.repository.PostRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.var;
 
 @Service
 @RequiredArgsConstructor
@@ -54,7 +56,7 @@ public class PostService {
             post.isFirst(),
             post.isLast()
         );
-    }
+    }   
 
     public Long edit(Authentication connectedUser, Long postId) {
         User user = ((User) connectedUser.getPrincipal());
@@ -79,5 +81,14 @@ public class PostService {
     }
 
     postRepository.delete(existingPost);
+}
+public Void uploadImage(MultipartFile file, Authentication connectedUser, Long postId) {
+ 
+    Post existingPost = postRepository.findById(postId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found"));
+    User user = ((User) connectedUser.getPrincipal());
+    var postImage = fileStorageService.saveFile(file, post, user.getUserId());
+    post.setPostImage();
+    postRepository.save(post);
 }
 }

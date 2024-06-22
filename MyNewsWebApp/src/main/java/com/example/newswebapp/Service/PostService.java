@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.newswebapp.Common.PageResponse; 
+import com.example.newswebapp.Common.PageResponse;
+import com.example.newswebapp.File.FileService;
 import com.example.newswebapp.Mapper.PostMapper;
 import com.example.newswebapp.Model.Post;
 import com.example.newswebapp.Model.User;
@@ -31,6 +32,7 @@ public class PostService {
     
     private final PostRepository postRepository;
     private final PostMapper postMapper;
+    private final FileService fileStorageService;
     public Long save(PostRequest request, Authentication connectedUser) {
        User user = ((User) connectedUser.getPrincipal());
         Post post = postMapper.toPost(request);
@@ -42,22 +44,24 @@ public class PostService {
         .map(postMapper::toPostResponse)
         .orElseThrow(() -> new EntityNotFoundException("No Post found with id: " + postId));
     }
-    public PageResponse<PostResponse> findAllPost(int page, int size, Authentication connectedUser){
+    public PageResponse<PostResponse> findAllPosts(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-        Page<Post> post = postRepository.findAll(pageable);
-        List<PostResponse> postResponses = post.stream()
-        .map(postMapper::toPostResponse).toList();
+        Page<Post> posts = postRepository.findAll(pageable);
+        
+        List<PostResponse> postResponses = posts.stream()
+            .map(postMapper::toPostResponse)
+            .toList();
+    
         return new PageResponse<>(
             postResponses,
-            post.getNumber(),
-            post.getSize(),
-            post.getTotalElements(),
-            post.getTotalPages(),
-            post.isFirst(),
-            post.isLast()
+            posts.getNumber(),
+            posts.getSize(),
+            posts.getTotalElements(),
+            posts.getTotalPages(),
+            posts.isFirst(),
+            posts.isLast()
         );
-    }   
-
+    }
     public Long edit(Authentication connectedUser, Long postId) {
         User user = ((User) connectedUser.getPrincipal());
         Post existingPost = postRepository.findById(postId)
@@ -82,13 +86,13 @@ public class PostService {
 
     postRepository.delete(existingPost);
 }
-public Void uploadImage(MultipartFile file, Authentication connectedUser, Long postId) {
+public void uploadImage(MultipartFile file, Authentication connectedUser, Long postId) {
  
     Post existingPost = postRepository.findById(postId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found"));
     User user = ((User) connectedUser.getPrincipal());
-    var postImage = fileStorageService.saveFile(file, post, user.getUserId());
-    post.setPostImage();
-    postRepository.save(post);
+    var postImage = fileStorageService.saveFile(file, postId, user.getUserId());
+    existingPost.setImage(postImage);
+    postRepository.save(existingPost);
 }
 }

@@ -45,13 +45,12 @@ public class PostContoller {
         return ResponseEntity.ok(service.findById(postId));
     }
     @GetMapping
-    public ResponseEntity<PageResponse<PostResponse>> viewAllPost(
-        @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-        @RequestParam(name = "size", defaultValue = "10", required = false) int size,
-        Authentication connectedUser
-        ) {
-        return ResponseEntity.ok(service.findAllPost(page, size, connectedUser));
-    }
+    public ResponseEntity<PageResponse<PostResponse>> getAllPosts(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size) {
+    PageResponse<PostResponse> response = service.findAllPosts(page, size);
+    return ResponseEntity.ok(response);
+}
     
     @PatchMapping("/edit/{post-id}")
     public ResponseEntity<Long> editPost(@PathVariable("post-id") Long postId, Authentication connectedUser){

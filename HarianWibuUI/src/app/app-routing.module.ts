@@ -6,6 +6,11 @@ import { ActivateAccountComponent } from './pages/activate-account/activate-acco
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'posts',
+    pathMatch: 'full'
+  },
+  {
     path: 'login',
     component: LoginComponent
   },
@@ -16,6 +21,10 @@ const routes: Routes = [
   {
     path: 'activate-account',
     component: ActivateAccountComponent
+  },
+  {
+    path: 'posts',
+    loadChildren: () => import('./modules/post/post.module').then(m => m.PostModule)
   }
 ];
 

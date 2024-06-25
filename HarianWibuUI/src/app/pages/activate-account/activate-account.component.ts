@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { skipUntil } from 'rxjs';
-import { AuthControllerService } from 'src/app/services/services/auth-controller.service';
+import { AuthenticationService } from 'src/app/services/services/authentication.service';
 
 @Component({
   selector: 'app-activate-account',
@@ -14,7 +14,7 @@ export class ActivateAccountComponent {
   submitted = false;
   constructor(
     private router: Router,
-    private authService: AuthControllerService
+    private authService: AuthenticationService
   ) {}
 
   private confirmAccount(token: string) {

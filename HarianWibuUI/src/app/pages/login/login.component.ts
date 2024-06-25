@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthRequest } from 'src/app/services/models/auth-request';
-import { AuthControllerService } from 'src/app/services/services/auth-controller.service';
+import { AuthenticationService } from 'src/app/services/services';
 import { TokenService } from 'src/app/services/token/token.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private authService: AuthControllerService,
+    private authService: AuthenticationService,
     private tokenService: TokenService
   ){
 }
@@ -26,7 +26,7 @@ login() {
   }).subscribe({
     next: (res) => {
     this.tokenService.token = res.token as string;
-      this.router.navigate(['post']);
+      this.router.navigate(['posts']);
     },
     error: (err) => {
       console.log(err);

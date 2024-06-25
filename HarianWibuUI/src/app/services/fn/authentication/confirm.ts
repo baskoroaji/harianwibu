@@ -7,24 +7,24 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface ViewAllPost$Params {
-  id: string;
+export interface Confirm$Params {
+  token: string;
 }
 
-export function viewAllPost(http: HttpClient, rootUrl: string, params: ViewAllPost$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-  const rb = new RequestBuilder(rootUrl, viewAllPost.PATH, 'get');
+export function confirm(http: HttpClient, rootUrl: string, params: Confirm$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, confirm.PATH, 'get');
   if (params) {
-    rb.query('id', params.id, {});
+    rb.query('token', params.token, {});
   }
 
   return http.request(
-    rb.build({ responseType: 'blob', accept: '*/*', context })
+    rb.build({ responseType: 'text', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<string>;
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
     })
   );
 }
 
-viewAllPost.PATH = '/api/posts/{id}';
+confirm.PATH = '/api/auth/activate-account';

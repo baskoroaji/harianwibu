@@ -25,7 +25,7 @@ public class FileService {
     private String fileUploadPath;
         public String saveFile(
            @Nonnull MultipartFile sourceFile,
-           @Nonnull Post post,
+           @Nonnull Long postId,
            @Nonnull Long userId
         ){
             final String fileUploadSubPath = "user" + File.separator + userId;

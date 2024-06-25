@@ -4,8 +4,8 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { AuthControllerService } from './services/auth-controller.service';
 import { PostContollerService } from './services/post-contoller.service';
+import { AuthenticationService } from './services/authentication.service';
 
 /**
  * Module that provides all services and configuration.
@@ -15,8 +15,8 @@ import { PostContollerService } from './services/post-contoller.service';
   exports: [],
   declarations: [],
   providers: [
-    AuthControllerService,
     PostContollerService,
+    AuthenticationService,
     ApiConfiguration
   ],
 })

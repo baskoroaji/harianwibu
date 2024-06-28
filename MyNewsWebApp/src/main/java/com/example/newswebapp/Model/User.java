@@ -63,11 +63,11 @@ public class User implements UserDetails, Principal {
     }
     @Override
     public String getUsername() {
-      return email;
+      return userName;
     }
     @Override
     public String getName() {
-      return userName;
+      return email;
     }
 
     @Override

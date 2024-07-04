@@ -1,1 +1,5 @@
-<p>post-list works!</p>
+<h2>Post List</h2>
+<div class="d-flex justify-content-start gap-2 flex-wrap">
+    <p
+    *ngFor="let post of postResponse.content">{{post.postName}}</p>
+</div>

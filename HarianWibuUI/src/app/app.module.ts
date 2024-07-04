@@ -5,10 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './pages/register/register.component';
 import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
 import { CodeInputModule } from 'angular-code-input';
+import { TokenInterceptorInterceptor } from './services/interceptor/token-interceptor.interceptor';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import { CodeInputModule } from 'angular-code-input';
     CodeInputModule
   ],
   providers: [
-    HttpClient,
+    HttpClient
   ],
   bootstrap: [AppComponent]
 })

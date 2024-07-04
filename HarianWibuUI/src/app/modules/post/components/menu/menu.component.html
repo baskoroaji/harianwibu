@@ -1,32 +1,55 @@
-<nav class="navbar navbar-expand-lg bg-danger">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="javascript:void(0)">Harian Wibu</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-        <li class="nav-item">
-            <a class="nav-link" aria-current="page" routerLink="/posts">Home</a>
+<nav class="navbar navbar-expand-lg bg-white">
+  <div class="container-fluid">
+    <img
+      class="navbar-brand p-2 logo-image"
+      href="javascript:void(0)"
+      src="../../../../../assets/harianwibu.png"
+      alt="logo"
+    />
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" id="homeclass">
+          <a class="nav-link" aria-current="page" routerLink="/posts">Home</a>
         </li>
-        <li class="nav-item ">
-            <a class="nav-link" aria-current="page" routerLink="/posts">Create Post</a>
+        <li class="nav-item" id="createpostclass">
+          <a class="nav-link" aria-current="page" routerLink="/posts"
+            >Create Post</a
+          >
         </li>
-    </ul>
-    <div>
-        <ul class="flex-grow-1 float-right me-auto navbar-nav">
-           
-                <li *ngIf="isAuthenticated"><a class="nav-link" aria-current="page">
-                    Welcome {{userName}}
-                </a></li>
-                           
-           
-                <li *ngIf="!isAuthenticated"><a routerLink="/login" class="nav-link" aria-current="page">Login</a></li>
-                
+      </ul>
+      <div>
+        <ul class="flex-grow-1 float-right me-auto navbar-nav p-3">
+          <li *ngIf="isAuthenticated">
+            <a
+              class="nav-link"
+              aria-current="page"
+            >
+              Welcome {{ userName }}
+            </a>
+            </li>   
+              <li class="nav-link">
+                <a [hidden]="!isAuthenticated">Logout</a>
+              </li>
+         
+
+          <li *ngIf="!isAuthenticated">
+            <a routerLink="/login" class="nav-link" aria-current="page"
+              >Login</a
+            >
+          </li>
         </ul>
+      </div>
     </div>
-        
-       
-        </div>
-</div>
+  </div>
 </nav>

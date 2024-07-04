@@ -2,6 +2,7 @@ package com.example.newswebapp.Mapper;
 
 import org.springframework.stereotype.Service;
 
+import com.example.newswebapp.File.FileUtils;
 import com.example.newswebapp.Model.Post;
 import com.example.newswebapp.dto.PostRequest;
 import com.example.newswebapp.dto.PostResponse;
@@ -21,7 +22,7 @@ public class PostMapper {
         return PostResponse.builder()
         .postId(post.getPostId())
         .postName(post.getPostName())
-        //.image(post.getImage())
+        .image(FileUtils.readFileFromLocation(post.getImage()))
         .content(post.getContent())
         .owner(post.getOwner().getUsername())
         .build();

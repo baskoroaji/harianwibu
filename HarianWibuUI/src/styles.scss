@@ -2,18 +2,16 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
 .body{
-  font-family: "Bebas Neue", sans-serif;
-  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
   font-style: normal;
 }
   .login-container {
     width: 450px !important;
     margin-top: 15%;
     border-color: transparent;
-    font-family: "Bebas Neue", sans-serif;
     font-weight: 400;
-    font-style: normal;
-    text-indent: 5px;
   }
   .form-control {
     background-color: rgb(45, 52, 61);

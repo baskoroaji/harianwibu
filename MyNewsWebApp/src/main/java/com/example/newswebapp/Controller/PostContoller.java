@@ -47,7 +47,8 @@ public class PostContoller {
     @GetMapping
     public ResponseEntity<PageResponse<PostResponse>> getAllPosts(
         @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size) {
+        @RequestParam(defaultValue = "10") int size
+        ) {
     PageResponse<PostResponse> response = service.findAllPosts(page, size);
     return ResponseEntity.ok(response);
 }

@@ -39,10 +39,6 @@ public class Post {
     private LocalDateTime createdDate;
     @Column(insertable = false)
     private LocalDateTime updatedDate;
-
-    @ManyToOne
-    @JoinColumn(name = "userId" , referencedColumnName = "userId")
-    private User user;
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;

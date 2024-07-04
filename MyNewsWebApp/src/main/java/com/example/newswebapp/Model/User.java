@@ -19,6 +19,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,6 +48,8 @@ public class User implements UserDetails, Principal {
     private String password;
     private boolean accountLocked;
 
+    @OneToMany(mappedBy = "owner")
+    private List<Post> posts;
     @ManyToMany(fetch=FetchType.EAGER)
     private List<Role> roles;
     @CreatedDate
@@ -63,11 +66,11 @@ public class User implements UserDetails, Principal {
     }
     @Override
     public String getUsername() {
-      return userName;
+      return email;
     }
     @Override
     public String getName() {
-      return email;
+      return userName;
     }
 
     @Override

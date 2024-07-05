@@ -27,7 +27,12 @@ import { TokenInterceptorInterceptor } from './services/interceptor/token-interc
     CodeInputModule
   ],
   providers: [
-    HttpClient
+    HttpClient,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

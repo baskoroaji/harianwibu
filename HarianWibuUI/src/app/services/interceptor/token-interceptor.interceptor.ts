@@ -17,6 +17,9 @@ export class TokenInterceptorInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    if (request.method === 'GET'){
+      return next.handle(request);
+    }
     const token = this.tokenService.token;
     if (token){
       const authReq = request.clone({

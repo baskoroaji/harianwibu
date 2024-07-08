@@ -16,10 +16,14 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Data
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
@@ -29,7 +33,6 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long PostId;
     private String PostName;
-    private Instant PostDate;
     @Lob
     private String image;
     @Lob

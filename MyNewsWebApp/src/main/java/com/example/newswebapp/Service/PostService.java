@@ -64,17 +64,16 @@ public class PostService {
             posts.isLast()
         );
     }
-    public Long edit(Authentication connectedUser, Long postId) {
-        User user = ((User) connectedUser.getPrincipal());
+    public PostResponse edit(Authentication connectedUser, Long postId, PostRequest request) {
         Post existingPost = postRepository.findById(postId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found"));
-
+        User user = ((User) connectedUser.getPrincipal());
         if (!Objects.equals(existingPost.getOwner().getUserId(), user.getUserId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not the author of this post");
         }
-        existingPost.setPostName(existingPost.getPostName());
-        existingPost.setContent(existingPost.getContent());
-        return postRepository.save(existingPost).getPostId();
+        existingPost.setPostName(request.postName());
+        existingPost.setContent(request.content());
+        return postMapper.toPostResponse(postRepository.save(existingPost));
  }
 
     public void deletePost(Long postId, Authentication connectedUser) {

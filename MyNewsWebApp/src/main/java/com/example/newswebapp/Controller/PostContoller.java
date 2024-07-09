@@ -54,8 +54,8 @@ public class PostContoller {
 }
     
     @PatchMapping("/edit/{post-id}")
-    public ResponseEntity<Long> editPost(@PathVariable("post-id") Long postId, Authentication connectedUser){
-        return ResponseEntity.ok(service.edit(connectedUser, postId));
+    public ResponseEntity<PostResponse> editPost(@PathVariable("post-id") @RequestBody Long postId, Authentication connectedUser, PostRequest request){
+        return ResponseEntity.ok(service.edit(connectedUser, postId, request));
     }
 
     @PostMapping(value = "/cover/{post-id}", consumes = "multipart/form-data")
@@ -64,6 +64,11 @@ public class PostContoller {
         
        service.uploadImage(file, connectedUser, postId);
        return ResponseEntity.accepted().build();
+    }
+    @DeleteMapping("/{post-id}")
+    public ResponseEntity<?> deletePost(@PathVariable("post-id") Long postId, Authentication connectedUser) {
+        service.deletePost(postId, connectedUser);
+        return ResponseEntity.accepted().build();
     }
     
 }

@@ -163,6 +163,12 @@
             "in": "path",
             "required": true,
             "schema": { "type": "integer", "format": "int64" }
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/PostRequest" }
           }
         ],
         "responses": {
@@ -170,7 +176,7 @@
             "description": "OK",
             "content": {
               "application/json": {
-                "schema": { "type": "integer", "format": "int64" }
+                "schema": { "$ref": "#/components/schemas/PostResponse" }
               }
             }
           }
@@ -196,6 +202,26 @@
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/PostResponse" }
               }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["post-contoller"],
+        "operationId": "deletePost",
+        "parameters": [
+          {
+            "name": "post-id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int64" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
             }
           }
         }
@@ -249,6 +275,19 @@
         "type": "object",
         "properties": { "token": { "type": "string" } }
       },
+      "PostResponse": {
+        "type": "object",
+        "properties": {
+          "postId": { "type": "integer", "format": "int64" },
+          "postName": { "type": "string" },
+          "content": { "type": "string" },
+          "image": {
+            "type": "array",
+            "items": { "type": "string", "format": "byte" }
+          },
+          "owner": { "type": "string" }
+        }
+      },
       "PageResponsePostResponse": {
         "type": "object",
         "properties": {
@@ -262,19 +301,6 @@
           "totalPages": { "type": "integer", "format": "int32" },
           "first": { "type": "boolean" },
           "last": { "type": "boolean" }
-        }
-      },
-      "PostResponse": {
-        "type": "object",
-        "properties": {
-          "postId": { "type": "integer", "format": "int64" },
-          "postName": { "type": "string" },
-          "content": { "type": "string" },
-          "image": {
-            "type": "array",
-            "items": { "type": "string", "format": "byte" }
-          },
-          "owner": { "type": "string" }
         }
       }
     },

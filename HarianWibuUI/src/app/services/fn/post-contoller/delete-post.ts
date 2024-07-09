@@ -6,19 +6,16 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { PostRequest } from '../../models/post-request';
-import { PostResponse } from '../../models/post-response';
 
-export interface EditPost$Params {
+export interface DeletePost$Params {
   'post-id': number;
-  request: PostRequest;
 }
 
-export function editPost(http: HttpClient, rootUrl: string, params: EditPost$Params, context?: HttpContext): Observable<StrictHttpResponse<PostResponse>> {
-  const rb = new RequestBuilder(rootUrl, editPost.PATH, 'patch');
+export function deletePost(http: HttpClient, rootUrl: string, params: DeletePost$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+}>> {
+  const rb = new RequestBuilder(rootUrl, deletePost.PATH, 'delete');
   if (params) {
     rb.path('post-id', params['post-id'], {});
-    rb.query('request', params.request, {});
   }
 
   return http.request(
@@ -26,9 +23,10 @@ export function editPost(http: HttpClient, rootUrl: string, params: EditPost$Par
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<PostResponse>;
+      return r as StrictHttpResponse<{
+      }>;
     })
   );
 }
 
-editPost.PATH = '/api/posts/edit/{post-id}';
+deletePost.PATH = '/api/posts/{post-id}';

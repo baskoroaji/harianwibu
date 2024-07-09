@@ -13,14 +13,6 @@ public record PostRequest(
     String content
 ) {
 
-    public String getPostName() {
-        return postName;
-    }
-
-    public String getContent() {
-      return content;
-    }
-
 } 
 
 

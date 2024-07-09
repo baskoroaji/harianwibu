@@ -9,6 +9,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { deletePost } from '../fn/post-contoller/delete-post';
+import { DeletePost$Params } from '../fn/post-contoller/delete-post';
 import { editPost } from '../fn/post-contoller/edit-post';
 import { EditPost$Params } from '../fn/post-contoller/edit-post';
 import { getAllPosts } from '../fn/post-contoller/get-all-posts';
@@ -116,7 +118,7 @@ export class PostContollerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  editPost$Response(params: EditPost$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+  editPost$Response(params: EditPost$Params, context?: HttpContext): Observable<StrictHttpResponse<PostResponse>> {
     return editPost(this.http, this.rootUrl, params, context);
   }
 
@@ -126,9 +128,9 @@ export class PostContollerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  editPost(params: EditPost$Params, context?: HttpContext): Observable<number> {
+  editPost(params: EditPost$Params, context?: HttpContext): Observable<PostResponse> {
     return this.editPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<number>): number => r.body)
+      map((r: StrictHttpResponse<PostResponse>): PostResponse => r.body)
     );
   }
 
@@ -154,6 +156,35 @@ export class PostContollerService extends BaseService {
   viewPostById(params: ViewPostById$Params, context?: HttpContext): Observable<PostResponse> {
     return this.viewPostById$Response(params, context).pipe(
       map((r: StrictHttpResponse<PostResponse>): PostResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `deletePost()` */
+  static readonly DeletePostPath = '/api/posts/{post-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deletePost()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deletePost$Response(params: DeletePost$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+}>> {
+    return deletePost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `deletePost$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deletePost(params: DeletePost$Params, context?: HttpContext): Observable<{
+}> {
+    return this.deletePost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+}>): {
+} => r.body)
     );
   }
 

@@ -12,6 +12,7 @@ export class PostListComponent implements OnInit {
   postResponse: PageResponsePostResponse = {};
   page= 0;
   size= 5;
+  pages: any = [];
   
 
   constructor(
@@ -22,10 +23,28 @@ export class PostListComponent implements OnInit {
     this.findAllPost();
   }
   private findAllPost() {
-    this.postService.getAllPosts({page: this.page, size: this.size}).subscribe({next: (post) => {
+    this.postService.getAllPosts({page: this.page, size: this.size})
+    .subscribe({next: (post) => {
       this.postResponse = post; 
+      this.pages = Array(this.postResponse.totalPages)
+      .fill(0).map((x,i)=> i);
     }
       
     })
+  }
+  gotToPage(page: number) {
+    this.page = page;
+    this.findAllPost();
+  }
+  goToNextPage(){
+    this.page++;
+    this.findAllPost();
+  }
+  goToPreviousPage(){
+    this.page--;
+    this.findAllPost();
+  }
+  get isLastPage(){
+    return this.page === this.postResponse.totalPages as number -1;
   }
 }

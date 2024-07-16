@@ -7,6 +7,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { PostListComponent } from './pages/post-list/post-list.component';
 import { ArticleComponent } from './components/article/article.component';
 import { CreatePostComponent } from './pages/create-post/create-post.component';
+import { PostDetailComponent } from './pages/post-detail/post-detail.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { CreatePostComponent } from './pages/create-post/create-post.component';
     MenuComponent,
     PostListComponent,
     ArticleComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    PostDetailComponent
   ],
   imports: [
     CommonModule,

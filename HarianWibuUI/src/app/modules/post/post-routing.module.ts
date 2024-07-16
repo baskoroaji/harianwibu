@@ -16,6 +16,10 @@ const routes: Routes = [
       {
         path: 'create-post',
         component: CreatePostComponent,
+      },
+      {
+        path: 'post/:PostId',
+        component: CreatePostComponent,
       }
  
     ]

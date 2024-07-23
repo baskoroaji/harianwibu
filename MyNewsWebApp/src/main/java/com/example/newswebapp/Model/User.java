@@ -56,6 +56,10 @@ public class User implements UserDetails, Principal {
     @Column(nullable = false, updatable = false)
     private LocalDateTime created;
     private boolean enable;
+    @OneToMany(mappedBy = "user" ,fetch = FetchType.EAGER)
+    private List<Likes> likes;
+    @OneToMany(mappedBy = "user" ,fetch = FetchType.EAGER)
+    private List<Comment> comments;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles

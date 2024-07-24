@@ -55,7 +55,7 @@ public class Post {
     private User owner;
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
     private List<Likes> likes;
-    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
 

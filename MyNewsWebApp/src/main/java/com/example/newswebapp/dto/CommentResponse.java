@@ -14,5 +14,6 @@ import lombok.Setter;
 public class CommentResponse {
     private Long id;
     private String content;
+    private Long postId;
     private String user;
 }

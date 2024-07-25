@@ -45,10 +45,11 @@ public class CommentService {
         return commentRepository.save(comment).getId();
 }
 
-    public List<CommentResponse> findAllComment(Integer id, Long postId) {
+    public List<CommentResponse> findAllComment(Long postId) {
         Post post = postRepository.findById(postId)
         .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND ,"Post not found"));
-        return commentRepository.findByPost(post).stream().map(commentMapper::toCommentResponse).toList();
+        return commentRepository.findByPost(post)
+        .stream().map(commentMapper::toCommentResponse).toList();
 
 }
 }

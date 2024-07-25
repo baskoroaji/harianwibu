@@ -9,6 +9,6 @@ import com.example.newswebapp.Model.Comment;
 import com.example.newswebapp.Model.Post;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    List<Comment> findByPost(Post post);
+            List<Comment> findByPost(Post post);
 
 }

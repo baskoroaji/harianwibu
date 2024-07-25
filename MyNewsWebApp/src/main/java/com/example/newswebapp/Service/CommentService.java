@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.newswebapp.Common.PageResponse;
@@ -22,10 +23,12 @@ import com.example.newswebapp.dto.CommentResponse;
 import com.example.newswebapp.repository.CommentRepository;
 import com.example.newswebapp.repository.PostRepository;
 
+
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CommentService {
 
     private final CommentRepository commentRepository;

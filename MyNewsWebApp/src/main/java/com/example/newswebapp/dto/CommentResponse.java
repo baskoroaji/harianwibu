@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommentResponse {
-    private Integer id;
+    private Long id;
     private String content;
     private String user;
 }

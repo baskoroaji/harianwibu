@@ -36,7 +36,7 @@ public class PostService {
     private final PostMapper postMapper;
     private final FileService fileStorageService;
     public Long save(PostRequest request, Authentication connectedUser) {
-       User user = ((User) connectedUser.getPrincipal());
+        User user = ((User) connectedUser.getPrincipal());
         Post post = postMapper.toPost(request);
         post.setOwner(user);
         return postRepository.save(post).getPostId();

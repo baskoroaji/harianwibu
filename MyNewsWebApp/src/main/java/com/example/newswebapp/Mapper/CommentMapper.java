@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.newswebapp.Model.Comment;
 import com.example.newswebapp.Model.Post;
-import com.example.newswebapp.Model.User;
 import com.example.newswebapp.dto.CommentRequest;
 import com.example.newswebapp.dto.CommentResponse;
 

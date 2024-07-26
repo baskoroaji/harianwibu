@@ -2,12 +2,14 @@ package com.example.newswebapp.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,4 +54,13 @@ public class CommentService {
         .stream().map(commentMapper::toCommentResponse).toList();
 
 }
+    public void deleteComment(long commentId, Authentication connectedUser){
+        User user = ((User) connectedUser.getPrincipal());
+        Comment existingComment = commentRepository.findById(commentId)
+        .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Comment not found"));
+        if(!existingComment.getUser().getUserId().equals(user.getUserId())){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"you are not allowed to delete this comment");
+        }
+        commentRepository.delete(existingComment);
+    }
 }

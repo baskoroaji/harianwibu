@@ -1,5 +1,7 @@
 package com.example.newswebapp.dto;
 
+import com.example.newswebapp.Model.Post;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,5 +17,5 @@ public class CommentResponse {
     private Long id;
     private String content;
     private Long postId;
-    private String user;
+    private String username;
 }

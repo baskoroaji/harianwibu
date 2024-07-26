@@ -23,6 +23,8 @@ public class CommentMapper {
         return CommentResponse.builder()
         .id(comment.getId())
         .content(comment.getContent())
+        .postId(comment.getPost().getPostId())
+        .username(comment.getUser().getUsername())
         .build();
     }
 }

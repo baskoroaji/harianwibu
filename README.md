@@ -8,5 +8,6 @@
     <li>Comment Management</li>
     <li>Docker</li>
     <li>OpenAPI and Swagger UI</li>
+    <li>CI/CD pipeline (work in progress)</li>
     </ul>
 
